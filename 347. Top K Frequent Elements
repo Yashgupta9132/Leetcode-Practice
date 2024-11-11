@@ -1,0 +1,41 @@
+# Java
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int num : nums) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+
+        List<int[]> arr = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
+            arr.add(new int[] {entry.getValue(), entry.getKey()});
+        }
+        arr.sort((a, b) -> b[0] - a[0]);
+
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = arr.get(i)[1];
+        }
+        return res;
+    }
+}
+
+
+# Python
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {}
+        for num in nums:
+            count[num] = 1 + count.get(num, 0)
+
+        arr = []
+        for num, cnt in count.items():
+            arr.append([cnt, num])
+        arr.sort()
+
+        res = []
+        while len(res) < k:
+            res.append(arr.pop()[1])
+        return res
